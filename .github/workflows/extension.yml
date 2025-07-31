@@ -1,4 +1,4 @@
-name: Extension
+name: 创建扩展
 
 on:
   workflow_dispatch:
@@ -8,26 +8,27 @@ on:
 
 jobs:
   build:
-    name: build extension
+    name: Build Extension
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout
+    - name: 检查仓库
       uses: actions/checkout@v3
       
-    - name: Setup Node
+    - name: 安装 Node.js
       uses: actions/setup-node@v3
-      with:
-          node-version: '19'
           
-    - name: Update npm
+    - name: 更新 NPM
       run: npm update
+
+    - name: 安装 NPM 依赖
+      run: npm install
       
-    - name: Build and release
+    - name: 创建扩展
       run: npm run chrome
     
-    - name: Upload Artifact
+    - name: 上传文件
       uses: actions/upload-artifact@v4
       with:
-        name: bilibili-old
+        name: Bilibili-Old.zip
         path: dist/**/*
         retention-days: 30
