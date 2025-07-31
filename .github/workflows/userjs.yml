@@ -1,36 +1,34 @@
-name: UserJS
+name: 创建用户脚本
 
 on:
   workflow_dispatch:
   push:
     paths:
-      - 'tampermonkey/**'
-      - 'src/**'
-      - 'package.json'
+      - 'tampermonkey/manifest.json'
 
 jobs:
   build:
-    name: build UserJS
+    name: Build UserJS
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout repository
+    - name: 检查仓库
       uses: actions/checkout@v3
       
-    - name: Setup Node.js
+    - name: 安装 Node.js
       uses: actions/setup-node@v3
 
-    - name: Update npm
+    - name: 更新 NPM
       run: npm update
 
-    - name: Install dependencies
+    - name: 安装 NPM 依赖
       run: npm install
       
-    - name: Build Tampermonkey UserJS
+    - name: 创建脚本
       run: npm run tampermonkey
       
-    - name: Upload Artifact
+    - name: 上传文件
       uses: actions/upload-artifact@v4
       with:
-        name: tampermonkey-userjs
-        path: /dist/**/*
+        name: Bilibili-Old.user.js
+        path: tampermonkey/main.user.js
         retention-days: 30
